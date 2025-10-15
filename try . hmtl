@@ -1,4 +1,7 @@
-let username = prompt("Please enter your name:");
+</script>
+  <div id="rest of it "></div>
+  <script>
+    let username = prompt("Please enter your name:");
     let item = prompt("We sell all manner of fruits , Enter the name of fruit you want to buy:");
     let item_number = (prompt("How many " + item + "(s) do you want to buy? (between 1-99)"));
 
@@ -18,6 +21,7 @@ let username = prompt("Please enter your name:");
       } else {
         greeting = "Good evening";
       }
+    }
 
       
       let arrivalDate = new Date();
@@ -32,3 +36,8 @@ let username = prompt("Please enter your name:");
         <p>You ordered <strong>${item_number}</strong> ${item}(s).</p>
         <p>Your expected delivery date is <strong>${deliveryDate}</strong>.</p>
       `;
+
+    document.getElementById("rest of it ").innerHTML = outputHTML;
+    
+  </script>
+  
