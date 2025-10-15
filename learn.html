@@ -1,0 +1,34 @@
+let username = prompt("Please enter your name:");
+    let item = prompt("We sell all manner of fruits , Enter the name of fruit you want to buy:");
+    let item_number = (prompt("How many " + item + "(s) do you want to buy? (between 1-99)"));
+
+    
+    if (item_number < 1 || item_number > 99) {
+      alert("Invalid quantity. Please refresh and enter a number between 1 and 99.");
+    } else {
+      
+      let currentTime = new Date();
+      let hour = currentTime.getHours();
+      let greeting;
+
+      if (hour < 12) {
+        greeting = "Good morning";
+      } else if (hour < 18) {
+        greeting = "Good afternoon";
+      } else {
+        greeting = "Good evening";
+      }
+
+      
+      let arrivalDate = new Date();
+      arrivalDate.setDate(currentTime.getDate() + 7);
+      let options = { year: 'numeric', month: 'long', day: 'numeric' };
+      let deliveryDate = arrivalDate.toLocaleDateString(undefined, options);
+
+      
+      let outputHTML = `
+        <h2>${greeting}, ${username}!</h2>
+        <p>Thank you for your order!</p>
+        <p>You ordered <strong>${item_number}</strong> ${item}(s).</p>
+        <p>Your expected delivery date is <strong>${deliveryDate}</strong>.</p>
+      `;
