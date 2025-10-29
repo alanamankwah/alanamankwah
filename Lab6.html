@@ -17,7 +17,7 @@
       margin-top: 1rem;
     }
 
-    /* Flip hand to point left */
+    
     #catImage[data-default="true"] {
       transform: scaleX(-1);
     }
@@ -30,27 +30,27 @@
 
   <div class="container-fluid">
     <div class="row align-items-center">
-      <!-- Button -->
+
+     
       <div class="col-md-6 mb-3">
         <button class="btn btn-primary btn-lg" onclick="loadCatFacts()">Get Your Surprise Here</button>
       </div>
 
-      <!-- Image -->
+      
       <div class="col-md-6 mb-3">
-        <div>
-          <img id="catImage"
-               src="hand.jpg"
-               data-default="true"
-               width="640"
-               height="360"
-               class="img-fluid rounded shadow"
-               alt="Hand pointing to surprise">
-        </div>
+        <img id="catImage"
+             src="hand.jpg"
+             data-default="true"
+             width="640"
+             height="360"
+             class="img-fluid rounded shadow"
+             alt="Hand pointing to surprise">
       </div>
+
     </div>
   </div>
 
-  <!-- Table -->
+ 
   <div class="container mt-4">
     <table class="table table-bordered table-striped" id="factsTable">
       <thead class="table-light">
@@ -59,9 +59,7 @@
           <th>Fact</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Will be filled by JS -->
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
 
@@ -76,22 +74,13 @@
       btn.disabled = true;
 
       fetch(apiURL)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("Network response not OK");
-          }
-          return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-          console.log("API called successfully:", data);
+         
+          const sortedFacts = data.facts.sort((a, b) => a.factId - b.factId);
 
-          // Make sure data.facts exists and sort by factId
-          const sortedFacts = (data.facts || []).sort((a, b) => a.factId - b.factId);
-
-          // Clear old table rows
+          
           tableBody.innerHTML = "";
-
-          // Add rows using traditional DOM methods
           sortedFacts.forEach(fact => {
             const row = tableBody.insertRow();
             const cellId = row.insertCell(0);
@@ -100,15 +89,9 @@
             cellText.textContent = fact.text;
           });
 
-          // Update image if available
-          if (data.catPhoto) {
-            img.src = data.catPhoto;
-            img.removeAttribute("data-default");
-          }
-        })
-        .catch(error => {
-          console.error("Error fetching API:", error);
-          alert("There was a problem loading cat facts. Try again later.");
+          
+          img.src = data.catPhoto;
+          img.removeAttribute("data-default");
         })
         .finally(() => {
           btn.textContent = "Another Surprise";
